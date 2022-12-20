@@ -8,7 +8,7 @@ namespace Tic_Tac_Toe
 {
 	class Board
 	{
-		char[,] board;
+		private char[,] board;
 
 		public Board()
 		{
@@ -18,6 +18,11 @@ namespace Tic_Tac_Toe
 				{'4', '|', '5', '|', '6'},
 				{'7', '|', '8', '|', '9'}
 			};
+		}
+
+		public char[,] GetBoard ()
+		{
+			return board;
 		}
 
 		public void PrintBoard()
