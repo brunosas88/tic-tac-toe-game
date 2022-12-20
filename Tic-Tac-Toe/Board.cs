@@ -34,7 +34,7 @@ namespace Tic_Tac_Toe
 			}
 		}
 
-		public void updateBoard(int position, int player)
+		public void UpdateBoard(int position, int player)
 		{
 
 			char character = (player == 1) ? 'X' : 'O';
