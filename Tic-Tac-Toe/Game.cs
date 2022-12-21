@@ -13,6 +13,7 @@ namespace Tic_Tac_Toe
 			Console.BackgroundColor = ConsoleColor.DarkCyan;
 			Console.ForegroundColor = ConsoleColor.White;
 			List<Player> players = new List<Player>();
+			List<Match> matches = new List<Match>();
 			int option;
 			string warningMessage = "";
 			bool warning = false, validEntry;
@@ -38,10 +39,10 @@ namespace Tic_Tac_Toe
 						RegisterPlayer(players);
 						break;
 					case 2:
-						
+						ShowLogs(players, matches);					
 						break;
 					case 3:
-
+						SelectGameOptions(players, matches);
 						break;
 
 					case 0:
@@ -59,6 +60,85 @@ namespace Tic_Tac_Toe
 				}
 			} while (option != 0);
 
+		}
+
+		private static void ShowLogs(List<Player> players, List<Match> matches)
+		{
+			int option;
+			string warningMessage = "";
+			bool warning = false, validEntry;
+
+			do
+			{
+				Display.GameInterface("Mostrar Histórico");
+				Display.ShowLogMenu();
+
+				if (warning)
+				{
+					Display.ShowWarning(warningMessage);
+					warning = false;
+				}
+
+				Console.Write("Escolha operação a ser realizada indicando seu número: ");
+
+				validEntry = int.TryParse(Console.ReadLine(), out option);
+
+				switch (option)
+				{
+					case 1:
+						ShowPlayersLogs(players);
+						break;
+					case 2:
+						ShowMatchesLogs(matches);						
+						break;
+					case 0:
+					default:
+						if (validEntry && option == 0)													
+							break;						
+						else
+							option = -1;
+						warningMessage = "Aviso: Opção inválida, favor inserir número de 0 a 3.";
+						warning = true;
+						break;
+				}
+			} while (option != 0);
+		}
+
+		private static void ShowMatchesLogs(List<Match> matches)
+		{
+			Display.GameInterface("Histórico das Partidas");
+
+			string matchTitle;
+
+			foreach (Match match in matches)
+			{
+				matchTitle = $"{match.PlayerOne} vs {match.PlayerTwo}";
+				Console.WriteLine();
+				Console.WriteLine(matchTitle);
+				Console.WriteLine(Display.AlignMessage($"{match.PlayerOneVictories} x {match.PlayerTwoVictories}", matchTitle.Length));
+				Console.WriteLine(Display.AlignMessage($"Empates : {match.Draws}", matchTitle.Length));
+				if(match.MatchesPlayed > 1)				
+					Console.WriteLine(Display.AlignMessage($"Partidas Consecutivas: {match.MatchesPlayed}", matchTitle.Length));
+				
+			}
+
+			Display.BackToMenu();
+		}
+
+		private static void ShowPlayersLogs(List<Player> players)
+		{
+			Display.GameInterface("Histórico dos Jogadores");
+
+			foreach (Player player in players)
+			{
+				Console.WriteLine();
+				Console.WriteLine($"Nome: {player.Nome}");
+				Console.WriteLine($"Vitórias: {player.Victories}");
+				Console.WriteLine($"Derrotas: {player.Defeats}");
+				Console.WriteLine($"Empates: {player.Draws}");				
+			}
+
+			Display.BackToMenu();
 		}
 
 		static Player SelectPlayer(List<Player> players, int playerOrder)
@@ -90,43 +170,45 @@ namespace Tic_Tac_Toe
 			
 		}
 
-		static bool SelectGameOptions(List<Player> players)
+		static bool SelectGameOptions(List<Player> players, List<Match> matches)
 		{
 			Display.GameInterface("Configurações Iniciais do Jogo");
-	
-			Player? player = SelectPlayer(players, 1);
 
-			Player? otherPlayer = SelectPlayer(players, 2);
+			Player?[] gamePlayers = new Player[2];
 
-			if (player == null || otherPlayer == null)			
+			gamePlayers[0] = SelectPlayer(players, 1);
+
+			gamePlayers[1] = SelectPlayer(players, 2);
+
+			if (gamePlayers.Contains(null))			
 				Display.ShowWarning("Jogador(es) Inválidos!");
 			else
 			{
-				player.PlayOrder = 1;
-				otherPlayer.PlayOrder = 2;
-				int winner;
-				string playAgain = "n";
+				string playAgain;
+				int beforeMAtchPlayerOneWins = gamePlayers[0].Victories;
+				int beforeMAtchPlayerTwoWins = gamePlayers[1].Victories;
+				int beforeMAtchDraws = gamePlayers[1].Draws;
+				Match currentMatch = new Match(gamePlayers[0].Nome, gamePlayers[1].Nome);
 				do
 				{
-					winner = PlayGame(player, otherPlayer);
+					Display.GameInterface("Jogar!");
+					gamePlayers[0].PlayOrder = 1;
+					gamePlayers[1].PlayOrder = 2;
 
-					if(winner == 1)					
-						player.Vctories++;					
-					else if (winner == 2)
-						otherPlayer.Vctories++;
-					else
-					{
-						player.Draws++;
-						otherPlayer.Draws++;
-					}
+					PlayGame(gamePlayers[0], gamePlayers[1]);
 
 					Console.Write("Selecionar Outro Jogador? S - sim / Qualquer outra tecla - não: ");
 					playAgain = Console.ReadLine();
-					
 
-				
+					if (playAgain == "s" || playAgain == "S")					
+						Array.Reverse(gamePlayers);				
 
 				} while (playAgain == "s" || playAgain == "S");
+				currentMatch.PlayerOneVictories = gamePlayers[0].Victories - beforeMAtchPlayerOneWins;
+				currentMatch.PlayerTwoVictories = gamePlayers[1].Victories - beforeMAtchPlayerTwoWins;
+				currentMatch.Draws = gamePlayers[1].Draws - beforeMAtchDraws;
+				currentMatch.SetMMatchesPlayed();
+				matches.Add(currentMatch);
 			}
 
 			Display.BackToMenu();
@@ -134,7 +216,7 @@ namespace Tic_Tac_Toe
 			return true;
 		}
 
-		public static void RegisterPlayer(List<Player> players)
+		static void RegisterPlayer(List<Player> players)
 		{
 			string name, cpf, password, warning = "Jogador já Cadastrado!";
 			bool isRegistered;
@@ -158,7 +240,7 @@ namespace Tic_Tac_Toe
 			Display.BackToMenu();
 		}
 
-		static int PlayGame(Player playerOne, Player playerTwo)
+		static void PlayGame(Player playerOne, Player playerTwo)
 		{
 			Board gameBoard = new Board();
 			Player currentPlayer = playerOne; 
@@ -169,7 +251,7 @@ namespace Tic_Tac_Toe
 
 			do
 			{
-				Console.Clear();
+				Display.GameInterface("Jogar!");
 				gameBoard.PrintBoard();
 				Console.Write($"Jogador {currentPlayer.Nome}, insira posição: ");
 				position = CheckMove(moveCount);
@@ -184,14 +266,24 @@ namespace Tic_Tac_Toe
 					position = 0;
 			} while (position != 0 && winner == 0);
 
-			if (winner == 0)
+			if (winner == 1)
 			{
-				Console.WriteLine("Jogadores finalizaram a partida sem vencedores");
+				playerOne.Victories++;
+				playerTwo.Defeats++;
+				Display.ShowWarning($"Jogador {playerOne.Nome} venceu!");
+			}
+			else if (winner == 2)
+			{
+				playerOne.Defeats++;
+				playerTwo.Victories++;
+				Display.ShowWarning($"Jogador {playerTwo.Nome} venceu!");
 			}
 			else
-				Console.WriteLine($"Jogador {currentPlayer.Nome} venceu");
-
-			return winner;
+			{
+				playerOne.Draws++;
+				playerTwo.Draws++;
+				Display.ShowWarning("Jogadores finalizaram a partida sem vencedores");
+			}
 		}
 
 		static int CheckWinner(char[,] board)
