@@ -60,11 +60,18 @@ namespace Tic_Tac_Toe
 		public static void ShowMenu()
 		{
 			Console.WriteLine("1 - Cadastrar Novo Jogador");
-			Console.WriteLine("2 - Histórico de Partidas");
+			Console.WriteLine("2 - Histórico do Jogo");
 			Console.WriteLine("3 - Jogar!");
-			Console.WriteLine("0 - Sair do jogo");
+			Console.WriteLine("0 - Sair do Jogo");
 			Console.WriteLine();
 		}
 
+		public static void ShowLogMenu()
+		{
+			Console.WriteLine("1 - Ver Histórico de Jogadores");
+			Console.WriteLine("2 - Ver Histórico de Partidas");
+			Console.WriteLine("0 - Voltar ao Menu Principal");
+			Console.WriteLine();
+		}
 	}
 }
