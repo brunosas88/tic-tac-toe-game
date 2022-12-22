@@ -14,7 +14,7 @@ namespace Tic_Tac_Toe
 		{
 			board = new char[,]
 			{
-				{'1', '|', '2', '|', '3'},
+				{'5', '|', '4', '|', '3'},
 				{'4', '|', '5', '|', '6'},
 				{'7', '|', '8', '|', '9'}
 			};
@@ -27,15 +27,12 @@ namespace Tic_Tac_Toe
 
 		public void PrintBoard()
 		{
-			Console.WriteLine("----------");
+			Console.WriteLine(Display.AlignMessage("-------------"));
 			for (int row = 0; row < board.GetLength(0); row++)
-			{
-				for (int column = 0; column < board.GetLength(1); column++)
-				{
-					Console.Write(board[row, column] + " ");
-				}
+			{								
+				Console.Write(Display.AlignMessage($" {board[row, 0]} {board[row, 1]} {board[row, 2]} {board[row, 3]} {board[row, 4]} |"));				
 				Console.WriteLine();
-				Console.WriteLine("----------");
+				Console.WriteLine(Display.AlignMessage("-------------"));
 			}
 		}
 

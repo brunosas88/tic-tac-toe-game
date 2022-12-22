@@ -8,20 +8,25 @@ namespace Tic_Tac_Toe
 {
 	class Game
 	{
+
 		static void Main(string[] args)
 		{
 			Console.BackgroundColor = ConsoleColor.DarkCyan;
 			Console.ForegroundColor = ConsoleColor.White;
+			Console.SetWindowSize(Constants.WindowWidthSize, Constants.WindowHeightSize);
 			List<Player> players = new List<Player>();
 			List<Match> matches = new List<Match>();
 			int option;
 			string warningMessage = "";
 			bool warning = false, validEntry;
 
+			Board board = new Board();
+
 			do
 			{
 				Display.GameInterface("Menu Inicial");
 				Display.ShowMenu();
+				board.PrintBoard();
 
 				if (warning)
 				{
@@ -29,9 +34,11 @@ namespace Tic_Tac_Toe
 					warning = false;
 				}
 
-				Console.Write("Escolha operação a ser realizada indicando seu número: ");
+				Console.WriteLine(Display.AlignMessage("Escolha operação indicando seu número: "));
+				
+				
 
-				validEntry = int.TryParse(Console.ReadLine(), out option);
+				validEntry = int.TryParse(Display.FormatConsoleReadLine(), out option);
 
 				switch (option)
 				{
@@ -39,7 +46,7 @@ namespace Tic_Tac_Toe
 						RegisterPlayer(players);
 						break;
 					case 2:
-						ShowLogs(players, matches);					
+						GetLogs(players, matches);					
 						break;
 					case 3:
 						SelectGameOptions(players, matches);
@@ -62,7 +69,7 @@ namespace Tic_Tac_Toe
 
 		}
 
-		private static void ShowLogs(List<Player> players, List<Match> matches)
+		private static void GetLogs(List<Player> players, List<Match> matches)
 		{
 			int option;
 			string warningMessage = "";
@@ -79,17 +86,17 @@ namespace Tic_Tac_Toe
 					warning = false;
 				}
 
-				Console.Write("Escolha operação a ser realizada indicando seu número: ");
+				Console.WriteLine(Display.AlignMessage("Escolha operação indicando seu número: "));
 
-				validEntry = int.TryParse(Console.ReadLine(), out option);
+				validEntry = int.TryParse(Display.FormatConsoleReadLine(), out option);
 
 				switch (option)
 				{
 					case 1:
-						ShowPlayersLogs(players);
+						GetPlayersLogs(players);
 						break;
 					case 2:
-						ShowMatchesLogs(matches);						
+						GetMatchesLogs(matches);						
 						break;
 					case 0:
 					default:
@@ -104,40 +111,23 @@ namespace Tic_Tac_Toe
 			} while (option != 0);
 		}
 
-		private static void ShowMatchesLogs(List<Match> matches)
+		private static void GetMatchesLogs(List<Match> matches)
 		{
 			Display.GameInterface("Histórico das Partidas");
 
-			string matchTitle;
-
 			foreach (Match match in matches)
-			{
-				matchTitle = $"{match.PlayerOne} vs {match.PlayerTwo}";
-				Console.WriteLine();
-				Console.WriteLine(matchTitle);
-				Console.WriteLine(Display.AlignMessage($"{match.PlayerOneVictories} x {match.PlayerTwoVictories}", matchTitle.Length));
-				Console.WriteLine(Display.AlignMessage($"Empates : {match.Draws}", matchTitle.Length));
-				if(match.MatchesPlayed > 1)				
-					Console.WriteLine(Display.AlignMessage($"Partidas Consecutivas: {match.MatchesPlayed}", matchTitle.Length));
-				
-			}
+				Display.ShowMatchesDetails(match);				
 
 			Display.BackToMenu();
 		}
 
-		private static void ShowPlayersLogs(List<Player> players)
+		private static void GetPlayersLogs(List<Player> players)
 		{
 			Display.GameInterface("Histórico dos Jogadores");
 
 			foreach (Player player in players)
-			{
-				Console.WriteLine();
-				Console.WriteLine($"Nome: {player.Nome}");
-				Console.WriteLine($"Vitórias: {player.Victories}");
-				Console.WriteLine($"Derrotas: {player.Defeats}");
-				Console.WriteLine($"Empates: {player.Draws}");				
-			}
-
+				Display.ShowPlayerDetails(player);		
+			
 			Display.BackToMenu();
 		}
 
@@ -150,16 +140,16 @@ namespace Tic_Tac_Toe
 			{
 				Display.GameInterface("Configurações Iniciais do Jogo");
 
-				Console.Write($"Nome do Jogador {playerOrder}: ");
-				string dataEntry = Console.ReadLine();
+				Console.WriteLine(Display.AlignMessage($"Nome do Jogador {playerOrder}: "));
+				string dataEntry = Display.FormatConsoleReadLine();
 
 				player = players.Find(player => player.Nome == dataEntry);
 
 				if (player == null)
 				{
 					Display.ShowWarning("Jogador Não Encontrado!");
-					Console.Write("Selecionar Outro Jogador? S - sim / Qualquer outra tecla - não: ");
-					findPlayerAgain = Console.ReadLine();
+					Console.WriteLine(Display.AlignMessage("Selecionar Outro Jogador? S - sim / Qualquer outra tecla - não: "));
+					findPlayerAgain = Display.FormatConsoleReadLine();
 				}
 				else
 					return player;
@@ -197,8 +187,8 @@ namespace Tic_Tac_Toe
 
 					PlayGame(gamePlayers[0], gamePlayers[1]);
 
-					Console.Write("Selecionar Outro Jogador? S - sim / Qualquer outra tecla - não: ");
-					playAgain = Console.ReadLine();
+					Console.WriteLine(Display.AlignMessage("Selecionar Outro Jogador? S - sim / Qualquer outra tecla - não: "));
+					playAgain = Display.FormatConsoleReadLine();
 
 					if (playAgain == "s" || playAgain == "S")					
 						Array.Reverse(gamePlayers);				
@@ -222,8 +212,8 @@ namespace Tic_Tac_Toe
 			bool isRegistered;
 			Display.GameInterface("Cadastro de Novo Jogador");	
 
-			Console.Write("Insira nome do novo cliente: ");
-			name = Console.ReadLine();
+			Console.WriteLine(Display.AlignMessage("Insira nome do novo jogador: "));
+			name = Display.FormatConsoleReadLine();
 
 			isRegistered = players.Exists(player => player.Nome == name);
 
@@ -253,7 +243,7 @@ namespace Tic_Tac_Toe
 			{
 				Display.GameInterface("Jogar!");
 				gameBoard.PrintBoard();
-				Console.Write($"Jogador {currentPlayer.Nome}, insira posição: ");
+				Console.WriteLine(Display.AlignMessage($"Jogador {currentPlayer.Nome}, insira posição: "));
 				position = CheckMove(moveCount);
 				if (position != 0)
 				{
@@ -315,7 +305,7 @@ namespace Tic_Tac_Toe
 			bool validEndtry;
 			do
 			{
-				validEndtry = int.TryParse(Console.ReadLine(), out position);
+				validEndtry = int.TryParse(Display.FormatConsoleReadLine(), out position);
 
 				if (position > 0 && position < 10)
 				{
@@ -325,12 +315,12 @@ namespace Tic_Tac_Toe
 						break;
 					}
 					else
-						Console.Write("Posição já ocupada, escolha outra: ");
+						Console.WriteLine(Display.AlignMessage("Posição já ocupada, escolha outra: "));
 				}
 				else if (validEndtry && position == 0) // sair do jogo
 					break;
 				else
-					Console.Write("Insira uma posição válida (1 - 9): ");					
+					Console.WriteLine(Display.AlignMessage("Insira uma posição válida (1 - 9): "));					
 				
 			} while (true);
 
