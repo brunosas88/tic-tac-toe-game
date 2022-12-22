@@ -11,8 +11,8 @@
 
 		public Match(string playerOneName, string playerTwoName)
 		{
-			this.playerOne = playerOneName;
-			this.playerTwo = playerTwoName;
+			playerOne = playerOneName;
+			playerTwo = playerTwoName;
 		}
 
 		public string PlayerOne { get => playerOne; }
