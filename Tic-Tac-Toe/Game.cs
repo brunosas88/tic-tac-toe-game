@@ -11,6 +11,7 @@ namespace Tic_Tac_Toe
 
 		static void Main(string[] args)
 		{
+			Console.OutputEncoding = System.Text.Encoding.Unicode;
 			Console.BackgroundColor = ConsoleColor.DarkCyan;
 			Console.ForegroundColor = ConsoleColor.White;
 			Console.SetWindowSize(Constants.WindowWidthSize, Constants.WindowHeightSize);
@@ -20,13 +21,10 @@ namespace Tic_Tac_Toe
 			string warningMessage = "";
 			bool warning = false, validEntry;
 
-			Board board = new Board();
-
 			do
 			{
 				Display.GameInterface("Menu Inicial");
-				Display.ShowMenu();
-				board.PrintBoard();
+				Display.ShowMenu();						
 
 				if (warning)
 				{
@@ -35,9 +33,7 @@ namespace Tic_Tac_Toe
 				}
 
 				Console.WriteLine(Display.AlignMessage("Escolha operação indicando seu número: "));
-				
-				
-
+					
 				validEntry = int.TryParse(Display.FormatConsoleReadLine(), out option);
 
 				switch (option)
@@ -51,7 +47,6 @@ namespace Tic_Tac_Toe
 					case 3:
 						SelectGameOptions(players, matches);
 						break;
-
 					case 0:
 					default:
 						if (validEntry && option == 0)

@@ -106,20 +106,23 @@ namespace Tic_Tac_Toe
 		public static void ShowPlayerDetails(Player player)
 		{
 			Console.WriteLine();
-			Console.WriteLine(Display.AlignMessage($"Nome: {player.Nome}"));
-			Console.WriteLine(Display.AlignMessage($"Vitórias: {player.Victories}"));
-			Console.WriteLine(Display.AlignMessage($"Derrotas: {player.Defeats}"));
-			Console.WriteLine(Display.AlignMessage($"Empates: {player.Draws}"));
+			Console.BackgroundColor = ConsoleColor.Yellow;
+			Console.ForegroundColor = ConsoleColor.Black;			
+			Console.WriteLine(AlignMessage($"{player.Nome}"));
+			Console.BackgroundColor = ConsoleColor.DarkCyan;
+			Console.ForegroundColor = ConsoleColor.Yellow;
+			Console.WriteLine(AlignMessage($"{player.Points} pontos | {player.Victories} vitórias | {player.Defeats} derrotas | {player.Draws} empates"));			
+			Console.ForegroundColor = ConsoleColor.White;
 		}
 
 		public static void ShowMatchesDetails(Match match)
 		{
 			Console.WriteLine();
-			Console.WriteLine(Display.AlignMessage($"{match.PlayerOne} vs {match.PlayerTwo}"));
-			Console.WriteLine(Display.AlignMessage($"{match.PlayerOneVictories} x {match.PlayerTwoVictories}"));
-			Console.WriteLine(Display.AlignMessage($"Empates : {match.Draws}"));
+			Console.WriteLine(AlignMessage($"{match.PlayerOne} x {match.PlayerTwo}"));
+			Console.WriteLine(AlignMessage($"{match.PlayerOneVictories} x {match.PlayerTwoVictories}"));
+			Console.WriteLine(AlignMessage($"Empates : {match.Draws}"));
 			if (match.MatchesPlayed > 1)
-				Console.WriteLine(Display.AlignMessage($"Partidas Consecutivas: {match.MatchesPlayed}"));
+				Console.WriteLine(AlignMessage($"Partidas Consecutivas: {match.MatchesPlayed}"));
 		}
 	}
 }

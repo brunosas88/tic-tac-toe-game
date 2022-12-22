@@ -9,6 +9,6 @@ namespace Tic_Tac_Toe
 	public static class Constants
 	{
 		public const int WindowHeightSize = 28;
-		public const int WindowWidthSize = 75;
+		public const int WindowWidthSize = 65;
 	}
 }
