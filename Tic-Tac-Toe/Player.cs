@@ -15,6 +15,8 @@ namespace Tic_Tac_Toe
 		private int draws;
 		private int defeats;
 
+		public Player() { }
+
 		public Player(string nome)
 		{
 			this.nome = nome;
@@ -25,7 +27,7 @@ namespace Tic_Tac_Toe
 			defeats = 0;
 		}
 
-		public string Nome { get => nome; }
+		public string Nome { get => nome; set => nome = value; }
 		public int PlayOrder { get => playOrder; set => playOrder = value; }
 		public int Points { get => points; set => points = value; }
 		public int Victories { get => victories; set => victories = value; }

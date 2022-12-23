@@ -15,8 +15,12 @@ namespace Tic_Tac_Toe
 			Console.BackgroundColor = ConsoleColor.DarkCyan;
 			Console.ForegroundColor = ConsoleColor.White;
 			Console.SetWindowSize(Constants.WindowWidthSize, Constants.WindowHeightSize);
+
 			List<Player> players = new List<Player>();
 			List<Match> matches = new List<Match>();
+
+			Utils.ReadJSON(ref players, ref matches);
+
 			int option;
 			string warningMessage = "";
 			bool warning = false, validEntry;
@@ -52,6 +56,7 @@ namespace Tic_Tac_Toe
 						if (validEntry && option == 0)
 						{
 							Display.GameInterface("Game Over!");
+							Utils.WriteJSON(players, matches);
 							break;
 						}
 						else
@@ -207,14 +212,14 @@ namespace Tic_Tac_Toe
 			currentMatch.PlayerOneVictories = gamePlayers[0].Victories - playerOnePreMatchWins;
 			currentMatch.PlayerTwoVictories = gamePlayers[1].Victories - playerTwoPreMatchWins;
 			currentMatch.Draws = gamePlayers[0].Draws - playerOnepreMatchDraws;
-			currentMatch.SetMatchesPlayed();
+			currentMatch.CalculateMatchesPlayed();
 			matches.Add(currentMatch);
 
-			gamePlayers[0].Points = currentMatch.PlayerOneVictories * Constants.VictoryPoints +
+			gamePlayers[0].Points += currentMatch.PlayerOneVictories * Constants.VictoryPoints +
 									currentMatch.PlayerTwoVictories * Constants.DefeatPoints +
 									currentMatch.Draws * Constants.DrawPoints;
 
-			gamePlayers[1].Points = currentMatch.PlayerTwoVictories * Constants.VictoryPoints +
+			gamePlayers[1].Points += currentMatch.PlayerTwoVictories * Constants.VictoryPoints +
 									currentMatch.PlayerOneVictories * Constants.DefeatPoints +
 									currentMatch.Draws * Constants.DrawPoints;
 		}
