@@ -235,7 +235,9 @@ namespace Tic_Tac_Toe
 			int position, winner;
 			bool playerOneTurn = true;
 			bool[] moveCount = new bool[9];
+			Display.ShowWarning("Para sair da partida aperte a tecla 0 (zero)");
 			gameBoard.PrintBoard();
+			
 			do
 			{
 				
@@ -248,6 +250,7 @@ namespace Tic_Tac_Toe
 					currentPlayer = playerOneTurn ? playerOne : playerTwo;				
 				}
 				Display.GameInterface("Jogar!");
+				Display.ShowWarning("Para sair da partida aperte a tecla 0 (zero)");
 				gameBoard.PrintBoard();
 				winner = CheckWinner(gameBoard.GetBoard());
 				if (!moveCount.Contains(false))
