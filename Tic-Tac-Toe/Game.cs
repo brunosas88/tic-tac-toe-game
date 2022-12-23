@@ -217,6 +217,8 @@ namespace Tic_Tac_Toe
 				players.Add(new Player(name));				
 				warning = $"Jogador {name} Cadastrado com Sucesso!";
 			}
+			else if (string.IsNullOrEmpty(name))
+				warning = "Entrada Inválida! Operação Não Realizada!";
 			else
 				warning += " Operação Não Realizada!";
 
