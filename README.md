@@ -3,7 +3,7 @@ Jogo em um tabuleiro de 9 espaços onde a vitória é dada para o jogador que co
 
 ## Mecânica do jogo
 Para jogar o jogador deve inserir uma posição de 1 a 9 que representam os espaços do tabuleiro, não é permitido inserir em um espaço já inserido nem um valor fora
-desse intervalo é aceito. Uma vitória representa +2 pontos, derrota é -1 ponto e empate contabiliza +1 ponto. Todas as partidas são registradas e seu resultado pode ser observado posteriormente. 
+desse intervalo é aceito. Uma vitória representa +2 pontos, derrota é -1 ponto e empate contabiliza +1 ponto. Todas as partidas são registradas e seu resultado pode ser observado posteriormente bem como o histórico dos jogadores individualmente. 
 ```
 ¹ | ² | ³
 ⁴ | ⁵ | ⁶
