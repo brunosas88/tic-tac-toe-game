@@ -235,24 +235,25 @@ namespace Tic_Tac_Toe
 			int position, winner;
 			bool playerOneTurn = true;
 			bool[] moveCount = new bool[9];
-
+			gameBoard.PrintBoard();
 			do
 			{
-				Display.GameInterface("Jogar!");
-				gameBoard.PrintBoard();
+				
 				Console.WriteLine(Display.AlignMessage($"Jogador {currentPlayer.Nome}, insira posição: "));
 				position = CheckMove(moveCount);
 				if (position != 0)
 				{
 					gameBoard.UpdateBoard(position, currentPlayer.PlayOrder);
 					playerOneTurn = !playerOneTurn;
-					currentPlayer = playerOneTurn ? playerOne : playerTwo;
+					currentPlayer = playerOneTurn ? playerOne : playerTwo;				
 				}
+				Display.GameInterface("Jogar!");
+				gameBoard.PrintBoard();
 				winner = CheckWinner(gameBoard.GetBoard());
 				if (!moveCount.Contains(false))
 					position = 0;
 			} while (position != 0 && winner == 0);
-
+			
 			if (winner == 1)
 			{
 				playerOne.Victories++;
@@ -282,7 +283,7 @@ namespace Tic_Tac_Toe
 				if ((board[i,0] == board[i,2] && board[i, 0] == board[i, 4]))				
 					result = board[i, 0];
 				
-				for (int j = 0; j < board.GetLength(0); j += 2) // verifica colunas
+				for (int j = 0; j < board.GetLength(1); j += 2) // verifica colunas
 				{ 
 					if ((board[0, j] == board[1, j] && board[0, j] == board[2, j]))					
 						result = board[0, j];					
