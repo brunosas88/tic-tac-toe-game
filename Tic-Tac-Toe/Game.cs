@@ -239,8 +239,7 @@ namespace Tic_Tac_Toe
 			gameBoard.PrintBoard();
 			
 			do
-			{
-				
+			{				
 				Console.WriteLine(Display.AlignMessage($"Jogador {currentPlayer.Nome}, insira posição: "));
 				position = CheckMove(moveCount);
 				if (position != 0)
@@ -281,14 +280,14 @@ namespace Tic_Tac_Toe
 		{
 			char result = ' ';
 
-			for (int i = 0; i < board.GetLength(0); i++) // verifica linhas
+			for (int row = 0; row < board.GetLength(0); row++) // verifica linhas
 			{ 
-				if ((board[i,0] == board[i,2] && board[i, 0] == board[i, 4]))				
+				if ((board[row,0] == board[row,2] && board[row, 0] == board[row, 4]))				
 					result = board[i, 0];
 				
-				for (int j = 0; j < board.GetLength(1); j += 2) // verifica colunas
+				for (int column = 0; column < board.GetLength(1); column += 2) // verifica colunas
 				{ 
-					if ((board[0, j] == board[1, j] && board[0, j] == board[2, j]))					
+					if ((board[0, column] == board[1, column] && board[0, column] == board[2, column]))					
 						result = board[0, j];					
 				}
 			}
