@@ -118,11 +118,16 @@ namespace Tic_Tac_Toe
 		public static void ShowMatchesDetails(Match match)
 		{
 			Console.WriteLine();
-			Console.WriteLine(AlignMessage($"{match.PlayerOne} x {match.PlayerTwo}"));
-			Console.WriteLine(AlignMessage($"{match.PlayerOneVictories} x {match.PlayerTwoVictories}"));
-			Console.WriteLine(AlignMessage($"Empates : {match.Draws}"));
-			if (match.MatchesPlayed > 1)
-				Console.WriteLine(AlignMessage($"Partidas Consecutivas: {match.MatchesPlayed}"));
+			string FirstHalfTitle = $"{match.PlayerOne} ⨉";
+			Console.BackgroundColor = ConsoleColor.Yellow;
+			Console.ForegroundColor = ConsoleColor.Black;
+			Console.WriteLine($"{FirstHalfTitle, Constants.WindowWidthSize/2}" + $" {match.PlayerTwo,- (Constants.WindowWidthSize / 2) - 1}");
+			Console.BackgroundColor = ConsoleColor.DarkCyan;
+			Console.ForegroundColor = ConsoleColor.Yellow;
+			Console.WriteLine(AlignMessage($"{match.PlayerOneVictories} ⨉ {match.PlayerTwoVictories}"));			
+			if (match.Draws > 0)	Console.WriteLine(AlignMessage($"Empates : {match.Draws}"));
+			if (match.MatchesPlayed > 1)	Console.WriteLine(AlignMessage($"Partidas Consecutivas: {match.MatchesPlayed}"));
+			Console.ForegroundColor = ConsoleColor.White;
 		}
 	}
 }

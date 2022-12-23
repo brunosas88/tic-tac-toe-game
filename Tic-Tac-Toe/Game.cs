@@ -51,7 +51,7 @@ namespace Tic_Tac_Toe
 					default:
 						if (validEntry && option == 0)
 						{
-							Display.GameInterface("Muito Obrigado por utilizar nosso aplicativo!");
+							Display.GameInterface("Game Over!");
 							break;
 						}
 						else
@@ -182,7 +182,7 @@ namespace Tic_Tac_Toe
 
 					PlayGame(gamePlayers[0], gamePlayers[1]);
 
-					Console.WriteLine(Display.AlignMessage("Selecionar Outro Jogador? S - sim / Qualquer outra tecla - não: "));
+					Console.WriteLine(Display.AlignMessage("Continuar Jogando? S - sim / Qualquer outra tecla - não: "));
 					playAgain = Display.FormatConsoleReadLine();
 
 					if (playAgain == "s" || playAgain == "S")					
