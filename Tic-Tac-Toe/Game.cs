@@ -283,12 +283,12 @@ namespace Tic_Tac_Toe
 			for (int row = 0; row < board.GetLength(0); row++) // verifica linhas
 			{ 
 				if ((board[row,0] == board[row,2] && board[row, 0] == board[row, 4]))				
-					result = board[i, 0];
+					result = board[row, 0];
 				
 				for (int column = 0; column < board.GetLength(1); column += 2) // verifica colunas
 				{ 
 					if ((board[0, column] == board[1, column] && board[0, column] == board[2, column]))					
-						result = board[0, j];					
+						result = board[0, column];					
 				}
 			}
 
