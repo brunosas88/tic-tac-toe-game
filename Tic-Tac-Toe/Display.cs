@@ -111,7 +111,7 @@ namespace Tic_Tac_Toe
 			Console.WriteLine(AlignMessage($"{player.Nome}"));
 			Console.BackgroundColor = ConsoleColor.DarkCyan;
 			Console.ForegroundColor = ConsoleColor.Yellow;
-			Console.WriteLine(AlignMessage($"{player.Points} pontos | {player.Victories} vitórias | {player.Defeats} derrotas | {player.Draws} empates"));			
+			Console.WriteLine(AlignMessage($"{player.Points} Ponto(s) | {player.Victories} Vitória(s) | {player.Defeats} Derrota(s) | {player.Draws} Empate(s)"));			
 			Console.ForegroundColor = ConsoleColor.White;
 		}
 
@@ -125,7 +125,7 @@ namespace Tic_Tac_Toe
 			Console.BackgroundColor = ConsoleColor.DarkCyan;
 			Console.ForegroundColor = ConsoleColor.Yellow;
 			Console.WriteLine(AlignMessage($"{match.PlayerOneVictories} x {match.PlayerTwoVictories}"));			
-			if (match.Draws > 0)	Console.WriteLine(AlignMessage($"Empates : {match.Draws}"));
+			if (match.Draws > 0)	Console.WriteLine(AlignMessage($"Empate(s) : {match.Draws}"));
 			if (match.MatchesPlayed > 1)	Console.WriteLine(AlignMessage($"Partidas Consecutivas: {match.MatchesPlayed}"));
 			Console.ForegroundColor = ConsoleColor.White;
 		}

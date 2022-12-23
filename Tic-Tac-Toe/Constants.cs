@@ -10,5 +10,8 @@ namespace Tic_Tac_Toe
 	{
 		public const int WindowHeightSize = 28;
 		public const int WindowWidthSize = 66;
+		public const int DrawPoints = 1;
+		public const int VictoryPoints = 2;
+		public const int DefeatPoints = -1;
 	}
 }

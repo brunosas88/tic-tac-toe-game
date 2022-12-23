@@ -170,9 +170,9 @@ namespace Tic_Tac_Toe
 			else
 			{
 				string playAgain;
-				int beforeMAtchPlayerOneWins = gamePlayers[0].Victories;
-				int beforeMAtchPlayerTwoWins = gamePlayers[1].Victories;
-				int beforeMAtchDraws = gamePlayers[1].Draws;
+				int playerOnePreMatchWins = gamePlayers[0].Victories;
+				int playerTwoPreMatchWins = gamePlayers[1].Victories;
+				int playerOnepreMatchDraws = gamePlayers[0].Draws;
 				Match currentMatch = new Match(gamePlayers[0].Nome, gamePlayers[1].Nome);
 				do
 				{
@@ -189,16 +189,34 @@ namespace Tic_Tac_Toe
 						Array.Reverse(gamePlayers);				
 
 				} while (playAgain == "s" || playAgain == "S");
-				currentMatch.PlayerOneVictories = gamePlayers[0].Victories - beforeMAtchPlayerOneWins;
-				currentMatch.PlayerTwoVictories = gamePlayers[1].Victories - beforeMAtchPlayerTwoWins;
-				currentMatch.Draws = gamePlayers[1].Draws - beforeMAtchDraws;
-				currentMatch.SetMMatchesPlayed();
-				matches.Add(currentMatch);
+
+				CalculateMatchResults(gamePlayers, matches,	playerOnePreMatchWins, playerTwoPreMatchWins, playerOnepreMatchDraws);
 			}
 
 			Display.BackToMenu();
 
 			return true;
+		}
+
+		private static void CalculateMatchResults(Player[] gamePlayers, List<Match> matches, int playerOnePreMatchWins, int playerTwoPreMatchWins, int playerOnepreMatchDraws)
+		{
+			int playerOnePoints;
+			int playerTwoPoints;
+
+			Match currentMatch = new Match(gamePlayers[0].Nome, gamePlayers[1].Nome);
+			currentMatch.PlayerOneVictories = gamePlayers[0].Victories - playerOnePreMatchWins;
+			currentMatch.PlayerTwoVictories = gamePlayers[1].Victories - playerTwoPreMatchWins;
+			currentMatch.Draws = gamePlayers[0].Draws - playerOnepreMatchDraws;
+			currentMatch.SetMatchesPlayed();
+			matches.Add(currentMatch);
+
+			gamePlayers[0].Points = currentMatch.PlayerOneVictories * Constants.VictoryPoints +
+									currentMatch.PlayerTwoVictories * Constants.DefeatPoints +
+									currentMatch.Draws * Constants.DrawPoints;
+
+			gamePlayers[1].Points = currentMatch.PlayerTwoVictories * Constants.VictoryPoints +
+									currentMatch.PlayerOneVictories * Constants.DefeatPoints +
+									currentMatch.Draws * Constants.DrawPoints;
 		}
 
 		static void RegisterPlayer(List<Player> players)

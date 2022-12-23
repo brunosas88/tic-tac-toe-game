@@ -21,7 +21,7 @@
 		public int PlayerTwoVictories { get => playerTwoVictories; set => playerTwoVictories = value; }
 		public int Draws { get => draws; set => draws = value; }	
 		public int MatchesPlayed { get => matchesPlayed; }
-		public void SetMMatchesPlayed()
+		public void SetMatchesPlayed()
 		{
 			matchesPlayed = playerOneVictories + playerTwoVictories + draws;
 		}
