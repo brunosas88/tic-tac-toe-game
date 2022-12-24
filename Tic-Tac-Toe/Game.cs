@@ -18,27 +18,17 @@ namespace Tic_Tac_Toe
 
 			List<Player> players = new List<Player>();
 			List<Match> matches = new List<Match>();
+			List<string> mainMenuOptions = new List<string>
+			{Constants.MainMenuEndGameOption, Constants.MainMenuFirstOption, Constants.MainMenuSecondOption,
+			Constants.MainMenuThirdption};
 
 			Utils.ReadJSON(ref players, ref matches);
 
 			int option;
-			string warningMessage = "";
-			bool warning = false, validEntry;
 
 			do
-			{
-				Display.GameInterface("Menu Inicial");
-				Display.ShowMenu();						
-
-				if (warning)
-				{
-					Display.ShowWarning(warningMessage);
-					warning = false;
-				}
-
-				Console.WriteLine(Display.AlignMessage("Escolha operação indicando seu número: "));
-					
-				validEntry = int.TryParse(Display.FormatConsoleReadLine(), out option);
+			{					
+				option = Display.ShowMenu(mainMenuOptions, "Menu Inicial");
 
 				switch (option)
 				{
@@ -52,43 +42,22 @@ namespace Tic_Tac_Toe
 						SelectGameOptions(players, matches);
 						break;
 					case 0:
-					default:
-						if (validEntry && option == 0)
-						{
-							Display.GameInterface("Game Over!");
-							Utils.WriteJSON(players, matches);
-							break;
-						}
-						else
-							option = -1;
-						warningMessage = "Aviso: Opção inválida, favor inserir número de 0 a 3.";
-						warning = true;
-						break;
+						Display.GameInterface("Game Over!");
+						Utils.WriteJSON(players, matches);
+						break;		
 				}
 			} while (option != 0);
-
 		}
 
 		private static void GetLogs(List<Player> players, List<Match> matches)
 		{
 			int option;
-			string warningMessage = "";
-			bool warning = false, validEntry;
+			List<string> menuOptions = new List<string>
+			{Constants.LogMenuBackToMainOption, Constants.LogMenuFirstOption, Constants.LogMenuSecondOption};
 
 			do
 			{
-				Display.GameInterface("Mostrar Histórico");
-				Display.ShowLogMenu();
-
-				if (warning)
-				{
-					Display.ShowWarning(warningMessage);
-					warning = false;
-				}
-
-				Console.WriteLine(Display.AlignMessage("Escolha operação indicando seu número: "));
-
-				validEntry = int.TryParse(Display.FormatConsoleReadLine(), out option);
+				option = Display.ShowMenu(menuOptions, "Histórico");	
 
 				switch (option)
 				{
@@ -99,13 +68,6 @@ namespace Tic_Tac_Toe
 						GetMatchesLogs(matches);						
 						break;
 					case 0:
-					default:
-						if (validEntry && option == 0)													
-							break;						
-						else
-							option = -1;
-						warningMessage = "Aviso: Opção inválida, favor inserir número de 0 a 3.";
-						warning = true;
 						break;
 				}
 			} while (option != 0);
