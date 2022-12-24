@@ -97,8 +97,8 @@ namespace Tic_Tac_Toe
 
 		public static void ShowLogMenu()
 		{
-			Console.WriteLine(AlignMessage("1 - Ver Histórico de Jogadores"));
-			Console.WriteLine(AlignMessage("2 - Ver Histórico de Partidas"));
+			Console.WriteLine(AlignMessage("1 - Ranking"));
+			Console.WriteLine(AlignMessage("2 - Histórico de Partidas"));
 			Console.WriteLine(AlignMessage("0 - Voltar ao Menu Principal"));
 			Console.WriteLine();
 		}
