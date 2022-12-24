@@ -131,14 +131,6 @@ namespace Tic_Tac_Toe
 			return indexToColorize;
 		}
 
-		public static void ShowLogMenu()
-		{
-			Console.WriteLine(AlignMessage("1 - Ver Histórico de Jogadores"));
-			Console.WriteLine(AlignMessage("2 - Ver Histórico de Partidas"));
-			Console.WriteLine(AlignMessage("0 - Voltar ao Menu Principal"));
-			Console.WriteLine();
-		}
-
 		public static void ShowPlayerDetails(Player player)
 		{
 			Console.WriteLine();

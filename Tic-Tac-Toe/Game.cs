@@ -57,7 +57,7 @@ namespace Tic_Tac_Toe
 
 			do
 			{
-				option = Display.ShowMenu(menuOptions, "Histórico");	
+				option = Display.ShowMenu(menuOptions, "Histórico");
 
 				switch (option)
 				{
@@ -75,7 +75,7 @@ namespace Tic_Tac_Toe
 
 		private static void GetMatchesLogs(List<Match> matches)
 		{
-			Display.GameInterface("Histórico das Partidas");
+			Display.GameInterface("Histórico de Partidas");
 
 			foreach (Match match in matches)
 				Display.ShowMatchesDetails(match);				
@@ -85,9 +85,11 @@ namespace Tic_Tac_Toe
 
 		private static void GetPlayersLogs(List<Player> players)
 		{
-			Display.GameInterface("Histórico dos Jogadores");
+			Display.GameInterface("Ranking");
+			List<Player> ranking = players.OrderBy(player => player.Points).ToList();
+			ranking.Reverse();
 
-			foreach (Player player in players)
+			foreach (Player player in ranking)
 				Display.ShowPlayerDetails(player);		
 			
 			Display.BackToMenu();
