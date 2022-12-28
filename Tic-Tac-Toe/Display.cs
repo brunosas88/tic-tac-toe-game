@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.VisualBasic.FileIO;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Numerics;
@@ -66,7 +67,7 @@ namespace Tic_Tac_Toe
 			int blankSpace = Constants.WindowWidthSize-20;
 			int totalCharsHeader = Constants.WindowWidthSize;
 			message = AlignMessage(message, blankSpace);
-			string title = AlignMessage("Tic-Tac-Toe", blankSpace);
+			string title = AlignMessage("Jogo da Velha", blankSpace);
 			Console.BackgroundColor = ConsoleColor.Green;
 
 			Console.WriteLine(new string('=', totalCharsHeader));
@@ -86,21 +87,48 @@ namespace Tic_Tac_Toe
 			Console.WriteLine();
 		}
 
-		public static void ShowMenu()
+		public static void ColorizeMessageBackground(string message)
 		{
-			Console.WriteLine(AlignMessage("1 - Cadastrar Novo Jogador"));
-			Console.WriteLine(AlignMessage("2 - Histórico do Jogo"));
-			Console.WriteLine(AlignMessage("3 - Jogar!"));
-			Console.WriteLine(AlignMessage("0 - Sair do Jogo"));
-			Console.WriteLine();
+			Console.BackgroundColor = ConsoleColor.White;
+			Console.ForegroundColor = ConsoleColor.DarkCyan;
+			Console.WriteLine(AlignMessage(message));
+			Console.BackgroundColor = ConsoleColor.DarkCyan;
+			Console.ForegroundColor = ConsoleColor.White;
 		}
 
-		public static void ShowLogMenu()
+		public static int ShowMenu(List<string> menuOptions, string menuTitle)
 		{
-			Console.WriteLine(AlignMessage("1 - Ranking"));
-			Console.WriteLine(AlignMessage("2 - Histórico de Partidas"));
-			Console.WriteLine(AlignMessage("0 - Voltar ao Menu Principal"));
-			Console.WriteLine();
+			int indexToColorize = 1;
+			ConsoleKey dataEntry;
+			do
+			{
+				GameInterface(menuTitle);
+
+				for (int option = 1; option < menuOptions.Count; option++)
+				{
+					if (option == indexToColorize) 					
+						ColorizeMessageBackground(menuOptions[option]);					
+					else
+						Console.WriteLine(AlignMessage(menuOptions[option]));					
+				}
+				if (indexToColorize == 0)
+					ColorizeMessageBackground(menuOptions[indexToColorize]);
+				else
+					Console.WriteLine(AlignMessage(menuOptions[0]));
+
+				ShowWarning(AlignMessage("Escolha operação desejada e pressione Enter"));
+
+				Console.Write(AlignMessage(""));
+				dataEntry = Console.ReadKey().Key;
+
+				if (dataEntry == ConsoleKey.DownArrow)
+					indexToColorize = indexToColorize == menuOptions.Count - 1 ? 0 : indexToColorize+=1;
+				else if (dataEntry == ConsoleKey.UpArrow)
+					indexToColorize = indexToColorize == 0 ? menuOptions.Count - 1 : indexToColorize-=1; 
+
+			} while (dataEntry != ConsoleKey.Enter);
+
+			return indexToColorize;
 		}
 
 		public static void ShowPlayerDetails(Player player)
