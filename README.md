@@ -1,4 +1,4 @@
-# Tic-Tac-Toe
+# Tic-Tac-Toe (Jogo da Velha)
 Jogo em um tabuleiro de 9 espaços onde a vitória é dada para o jogador que conseguir preencher em uma sequencia de três espaços o caracter que o representa.
 
 ## Mecânica do jogo
