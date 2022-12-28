@@ -10,6 +10,10 @@ desse intervalo é aceito. Uma vitória representa +2 pontos, derrota é -1 pont
 ⁷ | ⁸ | ⁹
 ```
 
+## Configuração Adicional
+O comando ``` Console.SetWindowSize(Constants.WindowWidthSize, Constants.WindowHeightSize); ``` localizado na linha 17 da classe Game.cs funciona somente no Windows, o que significa que para rodar em outro sistema operacional ela deve ser comentada. Lembrando também que não utilizado o sistema Windows alguns caracteres podem não ser reconhecidos e exibidos de forma incorreta.
+
+
 ## Recursos Implementados
     1 - Cadastrar jogadores;
     2 - Mostrar histórico de jogador(nome, pontos, vitórias, derrotas e empates);
