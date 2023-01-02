@@ -116,7 +116,7 @@ namespace Tic_Tac_Toe
 				else
 					Console.WriteLine(AlignMessage(menuOptions[0]));
 
-				ShowWarning(AlignMessage("Escolha operação desejada e pressione Enter"));
+				ShowWarning(AlignMessage("Utilize ↑ ↓ para navegar e Enter para selecionar a opção"));
 
 				Console.Write(AlignMessage(""));
 				dataEntry = Console.ReadKey().Key;
